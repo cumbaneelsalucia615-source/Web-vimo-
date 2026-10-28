@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIMO - Visão Moçambicana | Consultoria de Empresas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vimoDark: '#0d0d0d',
+                        vimoCard: '#161616',
+                        vimoGold: '#d4af37',
+                        vimoGoldHover: '#b5932a',
+                        vimoGoldLight: 'rgba(212, 175, 55, 0.15)',
+                        vimoBorder: 'rgba(212, 175, 55, 0.3)',
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fff2a3 0%, #d4af37 50%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .gold-border-glow:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body class="bg-vimoDark text-gray-100 min-h-screen flex flex-col justify-between selection:bg-vimoGold selection:text-black">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-[#070707]/90 backdrop-blur-md border-b border-vimoBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <!-- VIMO Monogram Logo Badge based on uploaded brand asset -->
+                <div class="flex items-center gap-3">
+                    <div class="relative w-11 h-11 bg-black border border-vimoGold/40 rounded-lg flex items-center justify-center overflow-hidden shadow-lg p-1.5">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <!-- Left Angular Pillar -->
+                            <polygon points="15,85 15,45 35,25 35,85" fill="#d4af37" />
+                            <!-- Middle Dark Angular Tower -->
+                            <polygon points="40,85 40,15 60,35 60,85" fill="#222222" stroke="#d4af37" stroke-width="2"/>
+                            <!-- Diagonal Gold Accent & Right Wing (V/M emblem structure) -->
+                            <polygon points="25,85 75,30 85,38 35,93" fill="url(#goldGrad)" />
+                            <polygon points="65,85 65,40 85,55 85,85" fill="#d4af37" />
+                            <defs>
+                                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#fff2a3" />
+                                    <stop offset="50%" stop-color="#d4af37" />
+                                    <stop offset="100%" stop-color="#aa7c11" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-serif font-extrabold tracking-wider text-white">VIMO</span>
+                        <p class="text-[10px] font-semibold tracking-widest uppercase text-vimoGold leading-tight">VISÃO MOÇAMBICANA</p>
+                        <p class="text-[9px] text-gray-400 font-light tracking-wide">CONSULTORIA DE EMPRESAS</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-vimoGold hover:text-white p-2">
+                <i class="fa-solid fa-bars text-2xl"></i>
+            </button>
+
+            <!-- Navigation Links -->
+            <nav id="navMenu" class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#inicio" class="text-gray-300 hover:text-vimoGold transition-colors">Início</a>
+                <a href="#servicos" class="text-gray-300 hover:text-vimoGold transition-colors">Serviços</a>
+                <a href="#simulador" class="text-gray-300 hover:text-vimoGold transition-colors">Simulador</a>
+                <a href="#contacto" class="text-gray-300 hover:text-vimoGold transition-colors">Contacto</a>
+                <a href="#contacto" class="px-5 py-2.5 rounded-lg border border-vimoGold text-vimoGold hover:bg-vimoGold hover:text-black font-semibold transition-all duration-300">
+                    Fale Connosco
+                </a>
+            </nav>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-vimoCard border-b border-vimoBorder px-6 py-4 flex flex-col space-y-4">
+            <a href="#inicio" class="text-gray-300 hover:text-vimoGold py-1">Início</a>
+            <a href="#servicos" class="text-gray-300 hover:text-vimoGold py-1">Serviços</a>
+            <a href="#simulador" class="text-gray-300 hover:text-vimoGold py-1">Simulador</a>
+            <a href="#contacto" class="text-gray-300 hover:text-vimoGold py-1">Contacto</a>
+            <a href="https://wa.me/258867600679" target="_blank" class="text-center px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp (+258 86 760 0679)
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="relative py-24 md:py-32 overflow-hidden border-b border-white/10">
+            <div class="absolute inset-0 opacity-20 pointer-events-none">
+                <div class="absolute -top-40 -right-40 w-96 h-96 bg-vimoGold rounded-full filter blur-[128px]"></div>
+                <div class="absolute bottom-0 -left-40 w-96 h-96 bg-[#8a6d1c] rounded-full filter blur-[128px]"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-vimoBorder bg-vimoGoldLight text-vimoGold text-xs sm:text-sm font-semibold mb-8">
+                    <span class="w-2 h-2 rounded-full bg-vimoGold animate-pulse"></span>
+                    Excelência & Rigor Empresarial em Moçambique
+                </div>
+                
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-extrabold tracking-tight text-white mb-6 leading-tight">
+                    Soluções Estratégicas para o <br class="hidden sm:block"/>
+                    <span class="gold-gradient-text">Crescimento do Seu Negócio</span>
+                </h1>
+                
+                <p class="max-w-3xl mx-auto text-gray-300 text-base sm:text-lg lg:text-xl font-light mb-10 leading-relaxed">
+                    Apoiamos pequenas, médias e grandes empresas em Moçambique através de consultoria corporativa de alto impacto, gestão financeira rigorosa e soluções digitais modernas adaptadas ao mercado nacional.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#simulador" class="w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-vimoGold to-[#b5932a] text-black font-bold text-base shadow-lg hover:brightness-110 transition-all">
+                        <i class="fa-solid fa-calculator mr-2"></i>Simular Orçamento (MZN)
+                    </a>
+                    <a href="#servicos" class="w-full sm:w-auto px-8 py-4 rounded-lg border border-vimoBorder bg-vimoCard hover:border-vimoGold text-white font-medium text-base transition-all">
+                        Explorar Serviços
+                    </a>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-12 border-t border-white/10">
+                    <div class="p-4">
+                        <p class="text-3xl font-serif font-bold text-vimoGold">100%</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Conformidade Legal & Fiscal</p>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-3xl font-serif font-bold text-vimoGold">Personalizado</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Atendimento ao Cliente</p>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-3xl font-serif font-bold text-vimoGold">Maputo</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Sede Localizada</p>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-3xl font-serif font-bold text-vimoGold">Digital & Presencial</p>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mt-1">Suporte Integrado</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicos" class="py-20 bg-[#0a0a0a]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-xs font-semibold uppercase tracking-widest text-vimoGold mb-2">Especialidades</h2>
+                    <p class="text-3xl sm:text-4xl font-serif font-bold text-white">Nossas Áreas de Atuação</p>
+                    <div class="w-16 h-1 bg-vimoGold mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Service 1 -->
+                    <div class="bg-vimoCard border border-vimoBorder rounded-2xl p-8 gold-border-glow transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-xl bg-vimoGoldLight border border-vimoBorder flex items-center justify-center text-vimoGold text-2xl mb-6">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-white mb-3">Consultoria de Gestão</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                Diagnóstico operacional, reestruturação estratégica e otimização de processos empresariais para alavancar a eficiência e rentabilidade do seu negócio.
+                            </p>
+                        </div>
+                        <ul class="space-y-2 text-xs text-gray-300 border-t border-white/10 pt-4">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-vimoGold"></i> Planeamento Estratégico</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-vimoGold"></i> Otimização de Processos</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-vimoGold"></i> Análise de Desempenho</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="bg-vimoCard border border-vimoBorder rounded-2xl p-8 gold-border-glow transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-xl bg-vimoGoldLight border border-vimoBorder flex items-center justify-center text-vimoGold text-2xl mb-6">
+                                <i class="fa-solid fa-calculator"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-white mb-3">Gestão Contabilística</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                Organização e manutenção contabilística rigorosa, cumprimento de obrigações fiscais (IRPS, IRPC, IVA) e relatórios financeiros transparentes.
+                            </p>
+                        </div>
+                        <ul class="space-y-2 text-xs text-gray-300 border-t border-white/10 pt-4">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-vimoGold"></i> Contabilidade Geral & Fiscal</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-vimoGold"></i> Processamento de Salários</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-vimoGold"></i> Demonstrações Financeiras</li>
+                        </ul>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="bg-vimoCard border border-vimoBorder rounded-2xl p-8 gold-border-glow transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-xl bg-vimoGoldLight border border-vimoBorder flex items-center justify-center text-vimoGold text-2xl mb-6">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-white mb-3">Sistemas, Apps & Presença Digital</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                **Criação de sistemas e aplicativos sob medida para qualquer área de negócio**, desenvolvimento de websites executivos, configuração de email corporativo (@vimo.co.mz) e posicionamento tecnológico no mercado.
+                            </p>
+                        </div>
+                        <ul class="space-y-2 text-xs text-gray-300 border-t border-white/10 pt-4">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-vimoGold"></i> Sistemas e Aplicativos para Qualquer Área</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-vimoGold"></i> Websites & Plataformas Web Corporativas</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-vimoGold"></i> Email Profissional & Identidade Digital</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Cost Simulator Section -->
+        <section id="simulador" class="py-20 border-t border-b border-white/10 bg-vimoDark relative">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-xs font-semibold uppercase tracking-widest text-vimoGold mb-2">Estimativa Rápida</h2>
+                    <p class="text-3xl font-serif font-bold text-white">Simulador de Serviços (MZN)</p>
+                    <p class="text-gray-400 text-sm mt-2">Calcule uma estimativa preliminar para as necessidades da sua empresa.</p>
+                </div>
+
+                <div class="bg-vimoCard border border-vimoBorder rounded-2xl p-6 sm:p-10 gold-border-glow">
+                    <form id="simulatorForm" class="space-y-6">
+                        <!-- Step 1: Company Size -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-300 mb-3">Dimensão da Empresa</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <label class="cursor-pointer border border-vimoBorder rounded-lg p-3 text-center bg-vimoDark hover:border-vimoGold transition-all">
+                                    <input type="radio" name="companySize" value="pequena" checked class="hidden peer">
+                                    <span class="block text-sm font-medium text-white peer-checked:text-vimoGold">Pequena Empresa</span>
+                                    <span class="text-xs text-gray-400">1 - 5 colaboradores</span>
+                                </label>
+                                <label class="cursor-pointer border border-vimoBorder rounded-lg p-3 text-center bg-vimoDark hover:border-vimoGold transition-all">
+                                    <input type="radio" name="companySize" value="media" class="hidden peer">
+                                    <span class="block text-sm font-medium text-white peer-checked:text-vimoGold">Médias Empresas</span>
+                                    <span class="text-xs text-gray-400">6 - 20 colaboradores</span>
+                                </label>
+                                <label class="cursor-pointer border border-vimoBorder rounded-lg p-3 text-center bg-vimoDark hover:border-vimoGold transition-all">
+                                    <input type="radio" name="companySize" value="grande" class="hidden peer">
+                                    <span class="block text-sm font-medium text-white peer-checked:text-vimoGold">Grande Empresa</span>
+                                    <span class="text-xs text-gray-400">+20 colaboradores</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Select Services -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-300 mb-3">Selecione os Serviços Pretendidos</label>
+                            <div class="space-y-3">
+                                <label class="flex items-center justify-between p-3 border border-vimoBorder rounded-lg bg-vimoDark cursor-pointer hover:border-vimoGold transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="serviceGestao" value="15000" class="w-4 h-4 text-vimoGold bg-black border-vimoBorder rounded focus:ring-vimoGold">
+                                        <div>
+                                            <p class="text-sm font-medium text-white">Consultoria de Gestão e Processos</p>
+                                            <p class="text-xs text-gray-400">Acompanhamento e reestruturação quinzenal/mensal</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-semibold text-vimoGold">+ 15.000 MT/mês</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3 border border-vimoBorder rounded-lg bg-vimoDark cursor-pointer hover:border-vimoGold transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="serviceContabilidade" value="12000" checked class="w-4 h-4 text-vimoGold bg-black border-vimoBorder rounded focus:ring-vimoGold">
+                                        <div>
+                                            <p class="text-sm font-medium text-white">Gestão Contabilística & Fiscal</p>
+                                            <p class="text-xs text-gray-400">Declarações fiscais, processamento de salários e balancetes</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-semibold text-vimoGold">+ 12.000 MT/mês</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3 border border-vimoBorder rounded-lg bg-vimoDark cursor-pointer hover:border-vimoGold transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="serviceWeb" value="25000" class="w-4 h-4 text-vimoGold bg-black border-vimoBorder rounded focus:ring-vimoGold">
+                                        <div>
+                                            <p class="text-sm font-medium text-white">Website Executivo & Email Corporativo</p>
+                                            <p class="text-xs text-gray-400">Desenvolvimento de site + contas de email @vimo.co.mz</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-semibold text-vimoGold">+ 25.000 MT (Pontual)</span>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3 border border-vimoBorder rounded-lg bg-vimoDark cursor-pointer hover:border-vimoGold transition-all">
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="serviceApp" value="45000" class="w-4 h-4 text-vimoGold bg-black border-vimoBorder rounded focus:ring-vimoGold">
+                                        <div>
+                                            <p class="text-sm font-medium text-white">Sistemas & Aplicativos Personalizados</p>
+                                            <p class="text-xs text-gray-400">Desenvolvimento de software sob medida para qualquer área de atuação</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-semibold text-vimoGold">+ 45.000 MT (Sob Consulta)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Result Display Box -->
+                        <div class="p-6 bg-[#0a0a0a] border border-vimoGold/40 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div>
+                                <p class="text-xs text-gray-400 uppercase tracking-wider">Estimativa Calculada</p>
+                                <p id="totalPrice" class="text-3xl font-serif font-bold gold-gradient-text">12.000 MT <span class="text-xs text-gray-400 font-sans">/ estimativa inicial</span></p>
+                            </div>
+                            <a href="#contacto" onclick="prefillContactForm()" class="w-full sm:w-auto px-6 py-3 rounded-lg bg-vimoGold hover:bg-vimoGoldHover text-black font-bold text-sm text-center transition-all">
+                                Solicitar Proposta Oficial
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="py-20 bg-[#070707]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-xs font-semibold uppercase tracking-widest text-vimoGold mb-2">Contacto Direto</h2>
+                    <p class="text-3xl font-serif font-bold text-white">Fale com a VIMO</p>
+                    <div class="w-16 h-1 bg-vimoGold mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Cards / Info -->
+                    <div class="space-y-6">
+                        <!-- WhatsApp Direct Line (NEW) -->
+                        <div class="bg-vimoCard border border-green-500/40 rounded-xl p-6 flex items-start justify-between gap-4 gold-border-glow">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center justify-center text-green-400 text-2xl shrink-0">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">WhatsApp Oficial</h4>
+                                    <a href="https://wa.me/258867600679" target="_blank" class="text-lg font-bold text-white hover:text-green-400 transition-colors">
+                                        +258 86 760 0679
+                                    </a>
+                                    <p class="text-xs text-gray-400 mt-1">Atendimento imediato e envio de propostas.</p>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/258867600679" target="_blank" class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-bold text-xs flex items-center gap-2 transition-all self-center">
+                                Conversar <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+
+                        <!-- Phone Call Line -->
+                        <div class="bg-vimoCard border border-vimoBorder rounded-xl p-6 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-vimoGoldLight border border-vimoBorder flex items-center justify-center text-vimoGold text-xl shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Telefone Chamadas</h4>
+                                <a href="tel:+258859288540" class="text-lg font-bold text-white hover:text-vimoGold transition-colors">
+                                    +258 85 928 8540
+                                </a>
+                                <p class="text-xs text-gray-400 mt-1">Atendimento de Segunda a Sexta, das 08:00 às 17:00.</p>
+                            </div>
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="bg-vimoCard border border-vimoBorder rounded-xl p-6 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-vimoGoldLight border border-vimoBorder flex items-center justify-center text-vimoGold text-xl shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Correio Eletrónico</h4>
+                                <a href="mailto:Geral@vimo.co.mz" class="text-lg font-bold text-white hover:text-vimoGold transition-colors">
+                                    Geral@vimo.co.mz
+                                </a>
+                                <p class="text-xs text-gray-400 mt-1">Resposta garantida dentro de 24 horas úteis.</p>
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="bg-vimoCard border border-vimoBorder rounded-xl p-6 flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-vimoGoldLight border border-vimoBorder flex items-center justify-center text-vimoGold text-xl shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Sede Principal</h4>
+                                <p class="text-base font-medium text-white mt-1">
+                                    Bairro Polana Caniço B, Quarteirão 54, Casa nº 1
+                                </p>
+                                <p class="text-sm text-vimoGold">Província de Maputo, Moçambique</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Form -->
+                    <div class="bg-vimoCard border border-vimoBorder rounded-2xl p-8 gold-border-glow">
+                        <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                            <div>
+                                <label for="userName" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Nome Completo</label>
+                                <input type="text" id="userName" required placeholder="Seu nome ou da sua empresa" class="w-full bg-vimoDark border border-vimoBorder rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-vimoGold transition-colors">
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="userEmail" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Endereço de Email</label>
+                                    <input type="email" id="userEmail" required placeholder="seuemail@dominio.co.mz" class="w-full bg-vimoDark border border-vimoBorder rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-vimoGold transition-colors">
+                                </div>
+                                <div>
+                                    <label for="userPhone" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Contacto Telefónico</label>
+                                    <input type="tel" id="userPhone" placeholder="+258 84/85 XXX XXXX" class="w-full bg-vimoDark border border-vimoBorder rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-vimoGold transition-colors">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="userMessage" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">Mensagem ou Assunto</label>
+                                <textarea id="userMessage" rows="4" required placeholder="Descreva sucintamente como a VIMO pode ajudar a sua empresa..." class="w-full bg-vimoDark border border-vimoBorder rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-vimoGold transition-colors"></textarea>
+                            </div>
+
+                            <button type="submit" id="submitBtn" class="w-full py-4 rounded-lg bg-gradient-to-r from-vimoGold to-[#b5932a] text-black font-bold text-sm tracking-wider uppercase shadow-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem para Geral@vimo.co.mz
+                            </button>
+
+                            <!-- Success Modal / Alert Message -->
+                            <div id="statusMessage" class="hidden p-4 rounded-lg bg-vimoGoldLight border border-vimoGold text-vimoGold text-sm text-center">
+                                <i class="fa-solid fa-circle-check mr-2"></i> Mensagem simulada enviada com sucesso! A equipa VIMO responderá em breve.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-vimoBorder/40 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+                <p class="text-lg font-serif font-bold text-vimoGold">VIMO</p>
+                <p class="text-xs text-gray-400">Visão Moçambicana - Consultoria de Empresas</p>
+            </div>
+            <p class="text-xs text-gray-500">
+                &copy; <span id="year"></span> VIMO. Todos os direitos reservados. Província de Maputo, Moçambique.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic Script -->
+    <script>
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Interactive Cost Simulator Calculation
+        function calculateEstimate() {
+            let baseMultiplier = 1;
+            const sizeRadio = document.querySelector('input[name="companySize"]:checked');
+            if (sizeRadio) {
+                if (sizeRadio.value === 'media') baseMultiplier = 1.4;
+                if (sizeRadio.value === 'grande') baseMultiplier = 2.0;
+            }
+
+            let monthlyTotal = 0;
+            let oneTimeTotal = 0;
+
+            const gestao = document.getElementById('serviceGestao');
+            const contabilidade = document.getElementById('serviceContabilidade');
+            const web = document.getElementById('serviceWeb');
+            const app = document.getElementById('serviceApp');
+
+            if (gestao && gestao.checked) monthlyTotal += parseFloat(gestao.value) * baseMultiplier;
+            if (contabilidade && contabilidade.checked) monthlyTotal += parseFloat(contabilidade.value) * baseMultiplier;
+            if (web && web.checked) oneTimeTotal += parseFloat(web.value);
+            if (app && app.checked) oneTimeTotal += parseFloat(app.value);
+
+            let resultText = '';
+            if (monthlyTotal > 0) {
+                resultText += monthlyTotal.toLocaleString('pt-MZ') + ' MT/mês';
+            }
+            if (oneTimeTotal > 0) {
+                if (monthlyTotal > 0) resultText += ' + ';
+                resultText += oneTimeTotal.toLocaleString('pt-MZ') + ' MT (Único)';
+            }
+            if (monthlyTotal === 0 && oneTimeTotal === 0) {
+                resultText = '0 MT';
+            }
+
+            totalPriceEl.innerHTML = `${resultText} <span class="text-xs text-gray-400 font-sans">/ estimativa inicial</span>`;
+        }
+
+        simulatorForm.addEventListener('change', calculateEstimate);
+
+        // Pre-fill contact message from simulator
+        function prefillContactForm() {
+            const sizeRadio = document.querySelector('input[name="companySize"]:checked');
+            const messageInput = document.getElementById('userMessage');
+            messageInput.value = `Olá VIMO, gostaria de solicitar uma proposta comercial formal para a minha empresa (${sizeRadio ? sizeRadio.value : 'dimensão a definir'}).`;
+        }
+
+        // Contact Form Submission Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMessage = document.getElementById('statusMessage');
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin"></i> A enviar...';
+
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Mensagem para Geral@vimo.co.mz';
+                statusMessage.classList.remove('hidden');
+
+                // Reset message field
+                document.getElementById('userMessage').value = '';
+                
+                setTimeout(() => {
+                    statusMessage.classList.add('hidden');
+                }, 6000);
+            }, 1200);
+        }
+    </script>
+</body>
+</html>
